@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Quiz Challenge – Test your general knowledge and computer science skills with a timed, interactive quiz." />
+    <title>Quiz Challenge</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+
+    <div id="start-screen" class="screen active">
+      <div class="start-wrapper">
+
+        <div class="brand-badge">
+          <span class="brand-icon">⚡</span>
+          <span>Quiz Challenge</span>
+        </div>
+
+        <h1 class="hero-title">Test Your Knowledge</h1>
+        <p class="hero-subtitle">
+          Answer questions from <strong>General Knowledge</strong> and
+          <strong>Computer Science</strong>. Each question has a
+          <strong>60-second timer</strong>. Choose your difficulty by
+          selecting how many questions you want to answer.
+        </p>
+
+        <div class="info-pills">
+          <div class="pill">
+            <span class="pill-icon">⏱️</span>
+            <span>60 sec / question</span>
+          </div>
+          <div class="pill">
+            <span class="pill-icon">📊</span>
+            <span>Score tracked</span>
+          </div>
+          <div class="pill">
+            <span class="pill-icon">🔄</span>
+            <span>Random order</span>
+          </div>
+        </div>
+
+        <div class="selector-section">
+          <p class="selector-label">How many questions?</p>
+          <div class="count-grid" id="count-grid">
+            <button class="count-btn" id="count-5"  data-count="5">5</button>
+            <button class="count-btn" id="count-10" data-count="10">10</button>
+            <button class="count-btn selected" id="count-15" data-count="15">15</button>
+            <button class="count-btn" id="count-20" data-count="20">20</button>
+            <button class="count-btn count-btn-all" id="count-all" data-count="all">All (25)</button>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn btn-start">
+          <span>Start Quiz</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+
+      </div>
+    </div>
+
+    <div id="quiz-screen" class="screen">
+      <div class="quiz-wrapper">
+
+        <div class="quiz-topbar">
+          <div class="topbar-left">
+            <span class="brand-icon-small">⚡</span>
+            <span id="question-counter" class="q-counter">Question 1 of 10</span>
+          </div>
+          <div id="timer-box" class="timer-box">
+            <svg class="timer-icon-svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="timer-text">60</span>s
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="progress-bar" class="progress-fill"></div>
+        </div>
+        <p id="progress-label" class="progress-label">0% completed</p>
+
+        <div class="question-card">
+          <div class="question-number-tag" id="q-tag">Q1</div>
+          <p id="question-text" class="question-text">Loading question…</p>
+
+          <div id="answer-options" class="answer-grid">
+            <button class="answer-btn" id="option-0"></button>
+            <button class="answer-btn" id="option-1"></button>
+            <button class="answer-btn" id="option-2"></button>
+            <button class="answer-btn" id="option-3"></button>
+          </div>
+
+          <div id="feedback" class="feedback-banner hidden"></div>
+        </div>
+
+        <button id="next-btn" class="btn btn-next hidden">
+          <span id="next-btn-text">Next Question</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+
+      </div>
+    </div>
+
+    <div id="results-screen" class="screen">
+      <div class="results-wrapper">
+
+        <div id="result-trophy" class="trophy">🏆</div>
+        <h2 class="results-heading">Quiz Complete!</h2>
+        <p id="result-tagline" class="result-tagline">Great effort!</p>
+
+        <div class="score-ring-wrap">
+          <div class="score-ring">
+            <span id="final-score" class="score-big">0</span>
+            <span id="score-denom" class="score-denom">/ 10</span>
+          </div>
+          <p id="score-percent" class="score-percent">0%</p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card stat-correct">
+            <span class="stat-icon">✅</span>
+            <span id="correct-count" class="stat-number">0</span>
+            <span class="stat-label">Correct</span>
+          </div>
+          <div class="stat-card stat-wrong">
+            <span class="stat-icon">❌</span>
+            <span id="incorrect-count" class="stat-number">0</span>
+            <span class="stat-label">Incorrect</span>
+          </div>
+          <div class="stat-card stat-timeout">
+            <span class="stat-icon">⏰</span>
+            <span id="timeout-count" class="stat-number">0</span>
+            <span class="stat-label">Timed Out</span>
+          </div>
+        </div>
+
+        <p id="result-message" class="result-message"></p>
+
+        <button id="restart-btn" class="btn btn-start">
+          <span>Restart Quiz</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        </button>
+
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
